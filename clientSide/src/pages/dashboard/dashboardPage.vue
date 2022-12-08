@@ -15,7 +15,7 @@
             </q-card-section>
             <q-card-section class="q-pt-none">
                 <div class="text-subtitle1">
-                    Hossein Pourghadiri
+                    Arshia Eshrati
                 </div>
 
                 <div class="text-caption text-grey">
@@ -44,7 +44,7 @@
             </q-card-section>
             <q-card-section class="q-pt-none">
                 <div class="text-subtitle1">
-                    Hossein Pourghadiri
+                    Arshia Eshrati
                 </div>
 
                 <div class="text-caption text-grey">
@@ -73,7 +73,7 @@
             </q-card-section>
             <q-card-section class="q-pt-none">
                 <div class="text-subtitle1">
-                    Hossein Pourghadiri
+                    Arshia Eshrati
                 </div>
 
                 <div class="text-caption text-grey">
@@ -107,7 +107,10 @@
 </script>
 
 <style lang="sass" scoped>
-.my-card
+.my-card 
   width: 100%
   max-width: 300px
+
+.q-card 
+    background-color: whitesmoke
 </style>

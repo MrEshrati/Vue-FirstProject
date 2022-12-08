@@ -127,7 +127,7 @@
 <script lang="ts" setup>
 
     import {ref} from 'vue';
-    import {columns,rows} from 'src/components/dashboard/allUserComponent';
+    import {columns,rows} from 'src/components/dashboard/ts/allUserComponent';
 
     const createUser = ref(false);
     const updateUser = ref(false);

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { api } from 'src/boot/axios';
 
-export const useCounterStore = defineStore('auth', {
+export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: '',
     expiresAt: 0,

@@ -101,7 +101,7 @@
 <script lang="ts" setup>
 
     import {ref} from 'vue';
-    import {columns,rows} from 'src/components/dashboard/allPostComponent';
+    import {columns,rows} from 'src/components/dashboard/ts/allPostComponent';
 
     const createPost = ref(false);
     const updatePost = ref(false);

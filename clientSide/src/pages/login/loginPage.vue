@@ -10,13 +10,13 @@
 
                     <q-card-section>
                         <q-form class="q-gutter-md">
-                            <q-input square filled clearable v-model="email" type="email" label="Email" />
-                            <q-input square filled clearable v-model="password" type="password" label="Password" />
+                            <q-input square filled clearable v-model="user.username" type="email" label="Email" />
+                            <q-input square filled clearable v-model="user.password" type="password" label="Password" />
                         </q-form>
                     </q-card-section>
 
                     <q-card-actions class="q-px-md">
-                        <q-btn unelevated color="light-blue-8" size="lg" class="full-width" label="Login" />
+                        <q-btn @click="login" unelevated size="lg" class="full-width" label="Login" />
                     </q-card-actions>
 
                     <q-card-section class="text-center q-pa-none">
@@ -28,15 +28,37 @@
 </template>
 
 <script>
+
+import{User} from 'src/models/user';
+import{ref} from 'vue';
+import{useAuthStore} from 'src/stores/auth-store';
+import{useRouter} from 'vue-router';
+
+const user = ref(new User('guest'));
+
 export default {
 
     name: 'firstLogin',
 
     data (){
-        return {
+        const authStore = useAuthStore();
+        const router = useRouter();
 
-            email : '',
-            password : '',
+        return {
+            user,
+            
+            login() {
+
+                authStore.authenticate(user.value.username , user.value.password)
+                .then(() => {
+
+                    router.replace({name:'dashboard'});
+                },
+                (error) => {
+
+                    console.log(`No Internet, Connection Lost because serve not served\n${error}`)
+                },);
+            }
         }
     },
 }
@@ -50,5 +72,18 @@ export default {
     }
     .q-card {
         width: 400px;
+        background-color: rgba(255, 255, 255, 0.88);
+    }
+    .q-btn {
+
+        border-radius: 20px;
+        background-color: rgb(30, 30, 202);
+        color: white;
+    }
+    .q-btn:hover {
+
+        transition: 0.2s ease-in-out;
+        transform: scale(103%);
+        background-color: rgb(23, 23, 177);
     }
 </style>

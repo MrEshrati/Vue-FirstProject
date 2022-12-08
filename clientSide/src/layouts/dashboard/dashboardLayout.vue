@@ -55,8 +55,14 @@
                 </q-card>
             </div>
             <div class="q-pa-md q-gutter-sm text-center">
+                
                 <q-btn class="updateBtn" label="Update" @click="prompt = true" />
+                <br/>
+                <q-btn class="logoutBtn" @click="logout" >
+                
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linejoin="round" height="3em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 
+                </q-btn>
                 <q-dialog v-model="prompt" persistent>
                     <q-card class="popup" style="min-width: 350px">
 
@@ -104,13 +110,19 @@
 <script>
 
 import { ref } from 'vue'
-import { accessMenu } from 'src/components/dashboard/menuListComponent';
-import { profile } from 'src/components/dashboard/profileComponent'
+import { accessMenu } from 'src/components/dashboard/ts/menuListComponent';
+import { profile } from 'src/components/dashboard/ts/profileComponent'
+import {useRouter} from 'vue-router'
+import { useAuthStore } from 'src/stores/auth-store';
+import auth from 'src/boot/auth';
 
 export default {
   setup () {
     const leftDrawerOpen = ref(false)
     const rightDrawerOpen = ref(false)
+    const authStore = useAuthStore();
+    const router = useRouter();
+
     return {
       leftDrawerOpen,
       accessMenu,
@@ -124,6 +136,12 @@ export default {
       },
       prompt: ref(false),
       model: ref(null),
+
+      logout() {
+
+        authStore.logout();
+        router.replace({name:'login'});
+      }
     }
   }
 }
@@ -190,5 +208,18 @@ export default {
     transition: 0.2s ease-in-out;
     transform: scale(103%);
     background-color: rgb(23, 23, 177);
+}
+.logoutBtn {
+
+    margin-top: 20px;
+    border-radius: 100px;
+    color: red;
+}
+.logoutBtn:hover {
+
+    color: azure;
+    transition: 0.2s ease-in-out;
+    transform: scale(103%);
+    background-color: red;
 }
 </style>

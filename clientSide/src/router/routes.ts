@@ -1,16 +1,38 @@
 import { route } from 'quasar/wrappers';
+import { useAuthStore } from 'src/stores/auth-store';
 import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('src/layouts/login/loginLayout.vue'),
+    beforeEnter(to,from,next){
+      const auth = useAuthStore();
+      auth.import();
+      if (!auth.isAuthorized) {
+        next();
+      } else {
+
+        next({name: 'dashboard'})
+      }
+    },
     redirect: <any> route(<any> {name: 'login'}),
     children: [{ path: '/login', name: 'login', component: () => import('pages/login/loginPage.vue') }],
   },
   {
     path: '/dashboard',
     component: () => import('src/layouts/dashboard/dashboardLayout.vue'),
+    
+    beforeEnter(to,from,next){
+      const auth = useAuthStore();
+      auth.import();
+      if (auth.isAuthorized) {
+        next();
+      } else {
+
+        next({name: 'login'})
+      }
+    },
     children: [
       { 
         path: 'dashboard', 
