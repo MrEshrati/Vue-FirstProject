@@ -1,6 +1,6 @@
 <template>
     <div class="q-pa-md row items-start q-gutter-md justify-center">
-        <q-card class="my-card">
+        <q-card class="DashboardPageCard">
             <q-img src="src/image/mountains.jpg" />
             <q-card-section>
                 <q-btn fab color="light-blue-8" icon="place" class="absolute" style="top: 0; right: 12px; transform: translateY(-50%);" />
@@ -29,7 +29,7 @@
                 <q-btn color="light-blue-8" icon-right="favorite" label="Like (0)" />
             </q-card-actions>
         </q-card>
-        <q-card class="my-card">
+        <q-card class="DashboardPageCard">
             <q-img src="src/image/mountains.jpg" />
             <q-card-section>
                 <q-btn fab color="light-blue-8" icon="place" class="absolute" style="top: 0; right: 12px; transform: translateY(-50%);" />
@@ -58,7 +58,7 @@
                 <q-btn color="light-blue-8" icon-right="favorite" label="Like (0)" />
             </q-card-actions>
         </q-card>
-        <q-card class="my-card">
+        <q-card class="DashboardPageCard">
             <q-img src="src/image/mountains.jpg" />
             <q-card-section>
                 <q-btn fab color="light-blue-8" icon="place" class="absolute" style="top: 0; right: 12px; transform: translateY(-50%);" />
@@ -107,10 +107,8 @@
 </script>
 
 <style lang="sass" scoped>
-.my-card 
-  width: 100%
-  max-width: 300px
-
-.q-card 
+.DashboardPageCard 
     background-color: whitesmoke
+    width: 100%
+    max-width: 300px
 </style>

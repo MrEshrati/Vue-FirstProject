@@ -64,81 +64,68 @@
                         {{ col.value }}
                     </q-td>
                     <q-td auto-width>
-                        <q-btn class="q-ma-sm" size="md" color="warning" dense icon="update" @click="updateUser = true"/>
-                        <q-btn class="q-ma-sm" size="md" color="red" dense icon="delete" @click="deleteUser = true"/>
-                        <q-dialog v-model="updateUser" persistent>
-                            <q-card style="min-width: 350px">
-                                <q-card-section>
-                                    <div class="text-h6">Update User</div>
-                                </q-card-section>
-
-                                <q-card-section class="q-pt-none">
-                                    <q-input dense @keyup.enter="updateUser = false" model-value="" label="Enter Your User Name"/>
-                                </q-card-section>
-
-                                <q-card-section class="q-pt-none">
-                                    <q-input dense @keyup.enter="updateUser = false" model-value="" label="Enter Your E-Mail"/>
-                                </q-card-section>
-
-                                <q-card-section class="q-pt-none">
-                                    <q-input type="password" dense @keyup.enter="updateUser = false" model-value="" label="Enter Your Password"/>
-                                </q-card-section>
-
-                                <q-card-section class="q-pt-none">
-                                    <q-file filled bottom-slots v-model="model" label="Avatar" counter>
-                                        <template v-slot:prepend>
-                                            <q-icon name="cloud_upload" @click.stop.prevent />
-                                        </template>
-                                        <template v-slot:append>
-                                            <q-icon name="close" @click.stop.prevent="model = null" class="cursor-pointer" />
-                                        </template>
-                                        <template v-slot:hint>
-                                            File Size
-                                        </template>
-                                    </q-file>
-                                </q-card-section>
-
-                                <q-card-actions align="right" class="text-primary">
-                                    <q-btn color="red" icon-right="close" label="Cancel" @click="updateUser = false"/>
-                                    <q-btn color="light-blue-8" icon-right="create" label="Update" />
-                                </q-card-actions>
-                            </q-card>
-                        </q-dialog>
-                        <q-dialog v-model="deleteUser">
-                            <q-card>
-                                <q-card-section class="row items-center">
-                                    <q-avatar icon="person" color="primary" text-color="white" />
-                                    <span class="q-ml-sm">Are You Sure, Want You To Delete This User?</span>
-                                </q-card-section>
-
-                                <q-card-actions align="right">
-                                    <q-btn color="light-blue-8" icon-right="close" label="Cancel" @click="deleteUser = false"/>
-                                    <q-btn color="red" icon-right="delete" label="Delete" />
-                                </q-card-actions>
-                            </q-card>
-                        </q-dialog>
+                        <q-btn class="q-ma-sm" size="md" color="warning" dense icon="update" @click="openConfirmUpdateUserDialog(props.row)"/>
+                        <q-btn class="q-ma-sm" size="md" color="red" dense icon="delete" @click="openConfirmDeleteUserDialog(props.row)"/>
                     </q-td>
                 </q-tr>
             </template>
         </q-table>
     </div>
+    <update-user
+        v-model:model-value = "confirmOpenUpdateUser"
+        :id = "updateUserParameter.id"
+        :name = "updateUserParameter.username"
+        :email = "updateUserParameter.email" 
+        ></update-user>
+    <delete-user
+
+        v-model:model-value = "confirmOpenDeleteUser"
+        :id = "deleteUserParameter.id"
+        :username = "deleteUserParameter.username"
+        ></delete-user>
 </template>
 
 <script lang="ts" setup>
 
     import {ref} from 'vue';
     import {columns,rows} from 'src/components/dashboard/ts/allUserComponent';
+    import UpdateUser from 'src/components/dashboard/vue/UpdateUser.vue';
+    import DeleteUser from 'src/components/dashboard/vue/DeleteUser.vue';
 
     const createUser = ref(false);
     const updateUser = ref(false);
     const deleteUser = ref(false);
     const model = ref(null);
     const filter = ref('');
+
+    const updateUserParameter = ref({
+        id: <number> 0,
+        username: <string> '',
+        email: <string> '',
+    });
+
+    const deleteUserParameter = ref({
+        id: <number> 0,
+        username: <string> '',
+        email: <string> '',
+    });
+
+    const confirmOpenUpdateUser = ref(false);
+
+    const openConfirmUpdateUserDialog = (row:any) => {
+
+        updateUserParameter.value.id = row.id;
+        updateUserParameter.value.username = row.name;
+        updateUserParameter.value.email = row.email;
+        confirmOpenUpdateUser.value = true;
+    }
+
+    const confirmOpenDeleteUser = ref(false);
+
+    const openConfirmDeleteUserDialog = (row:any) => {
+        
+        deleteUserParameter.value.id = row.id;
+        deleteUserParameter.value.username = row.name;
+        confirmOpenDeleteUser.value = true;
+    }
 </script>
-<style>
-
-.q-page {
-
-    color: white;
-}
-</style>

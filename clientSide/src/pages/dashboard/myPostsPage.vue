@@ -63,30 +63,79 @@
                         {{ col.value }}
                     </q-td>
                     <q-td auto-width>
-                    <q-btn class="q-ma-sm" size="md" color="warning" dense icon="update" @click="updatePost = true"/>
-                    <q-btn class="q-ma-sm" size="md" color="red" dense icon="delete" @click="deletePost = true"/>
+                        <q-btn class="q-ma-sm" size="md" color="warning" dense icon="update" @click="openConfirmUpdatePostDialog(props.row)"/>
+                        <q-btn class="q-ma-sm" size="md" color="red" dense icon="delete" @click="openConfirmDeletePost(props.row)"/>
                     </q-td>
                 </q-tr>
             </template>
         </q-table>
     </div>
+    <update-post
+    
+        v-model:model-value = "confirmOpenUpdatePost"
+        :id = "updatePostParameter.id"
+        :title = "updatePostParameter.title"
+        :description = "updatePostParameter.description"
+        ></update-post>
+
+    <delete-post
+        v-model:model-value = "confirmOpenDeletePost"
+        :id = "deletePostParameter.id"
+        :img = "deletePostParameter.img"
+        :title = "deletePostParameter.title"
+        :username = "deletePostParameter.username"
+        :description = "deletePostParameter.description"
+        ></delete-post>
 </template>
 
 <script lang="ts" setup>
 
     import {ref} from 'vue';
     import {columns,rows} from 'src/components/dashboard/ts/myPostComponent';
+    import UpdatePost from 'src/components/dashboard/vue/UpdatePost.vue';
+    import DeletePost from 'src/components/dashboard/vue/DeletePost.vue';
+    import {profile} from 'src/components/dashboard/ts/profileComponent';
 
     const createPost = ref(false);
     const updatePost = ref(false);
     const deletePost = ref(false);
     const model = ref(null);
     const filter = ref('');
+
+    const updatePostParameter = ref({
+        id: <number> 0,
+        title: <string> '',
+        description: <string> '',
+    });
+
+    const deletePostParameter = ref({
+
+        id: <number> 0,
+        title: <string> '',
+        img: <string> '',
+        username: <string> '',
+        description: <string> '',
+    });
+
+    const confirmOpenUpdatePost = ref(false);
+
+    const openConfirmUpdatePostDialog = (row:any) => {
+
+        updatePostParameter.value.id = row.id;
+        updatePostParameter.value.title = row.title;
+        updatePostParameter.value.description = row.description;
+        confirmOpenUpdatePost.value = true;
+    }
+
+    const confirmOpenDeletePost = ref(false);
+    const openConfirmDeletePost = (row:any) => {
+
+        deletePostParameter.value.id = row.id;
+        deletePostParameter.value.img = row.image;
+        deletePostParameter.value.title = row.title;
+        deletePostParameter.value.username = profile.username;
+        deletePostParameter.value.description = row.description;
+        confirmOpenDeletePost.value = true;
+
+    }
 </script>
-<style>
-
-.q-page {
-
-    color: white;
-}
-</style>

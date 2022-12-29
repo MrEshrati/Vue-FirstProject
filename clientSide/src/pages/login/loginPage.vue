@@ -1,12 +1,12 @@
 <template>
-    <q-page class="window-height window-width row justify-center items-center">
+    <q-page class="loginPage window-height window-width row justify-center items-center">
         <div class="column">
             <div class="row">
             <h5 class="text-h5 text-white q-my-md">Welcome To Open World</h5>
             </div>
 
             <div class="row">
-                <q-card rounded bordered class="q-pa-lg">
+                <q-card rounded bordered class="q-pa-lg LoginCard">
 
                     <q-card-section>
                         <q-form class="q-gutter-md">
@@ -16,7 +16,7 @@
                     </q-card-section>
 
                     <q-card-actions class="q-px-md">
-                        <q-btn @click="login" unelevated size="lg" class="full-width" label="Login" />
+                        <q-btn @click="login" unelevated size="lg" class="full-width LoginButton" label="Login" />
                     </q-card-actions>
 
                     <q-card-section class="text-center q-pa-none">
@@ -65,22 +65,22 @@ export default {
 </script>
 
 <style>
-    .q-page {
+    .loginPage {
         background-image: url(../../image/loginWallpaper.jpg);
         background-repeat: no-repeat;
         background-size: cover;
     }
-    .q-card {
+    .LoginCard {
         width: 400px;
         background-color: rgba(255, 255, 255, 0.88);
     }
-    .q-btn {
+    .LoginButton {
 
         border-radius: 20px;
         background-color: rgb(30, 30, 202);
         color: white;
     }
-    .q-btn:hover {
+    .LoginButton:hover {
 
         transition: 0.2s ease-in-out;
         transform: scale(103%);

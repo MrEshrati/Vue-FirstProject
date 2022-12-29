@@ -10,12 +10,13 @@ const rows: any = [
         id: 1,
         title: 'Masal',
         description: 'Best Mountains and View In World',
-
+        image: 'src/images/mountain.png',
     },
     {
         id: 2,
         title: 'Masal',
         description: 'Best Mountains and View In World',
+        image: 'src/images/mountain.png',
     },
 ]
 
