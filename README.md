@@ -21,3 +21,7 @@ In `serverSide`, install Composer dependencies, copy `.env.example` to `.env`, c
 2. Run `php artisan passport:client --password` and add the resulting client ID and secret to the server's `.env` as `AUTH_WEB_CLIENT_ID` and `AUTH_WEB_CLIENT_SECRET`.
 3. Set `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` before running `php artisan db:seed` on a fresh database. Choose a distinct local password between 12 and 72 bytes.
 4. Start Laravel with `php artisan serve` from `serverSide`. The Quasar client sends login requests to Laravel, which adds the Passport client secret on the server.
+
+## License
+
+The [MIT License](LICENSE) covers MrEshrati's original code and documentation. The [Quasar license notice](clientSide/QUASAR-LICENSE) and [Laravel starter's MIT declaration](https://github.com/laravel/laravel/blob/9.x/composer.json) cover their respective upstream materials. Third-party images and other assets are outside this grant.
