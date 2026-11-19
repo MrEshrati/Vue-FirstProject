@@ -15,15 +15,19 @@ class OauthClientSeeder extends Seeder
      */
     public function run()
     {
-        Client::create([
+        $client = config('services.passport_web_client');
+        if (empty($client['id']) || empty($client['secret'])) {
+            throw new \RuntimeException('Set AUTH_WEB_CLIENT_ID and AUTH_WEB_CLIENT_SECRET first.');
+        }
+
+        Client::firstOrCreate(['id' => $client['id']], [
             'name' => 'Web Client',
-            'id' => env('AUTH_WEB_CLIENT_ID',1),
-            'secret' => env('AUTH_WEB_CLIENT_SECRET'),
+            'secret' => $client['secret'],
             'redirect' => 'localhost:8000',
             'provider' => 'users',
             'personal_access_client' => 0,
             'password_client' => 1,
             'revoked' => 0,
-            ]);
+        ]);
     }
 }

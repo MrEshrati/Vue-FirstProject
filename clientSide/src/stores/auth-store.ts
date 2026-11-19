@@ -15,13 +15,9 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async authenticate(username:string, password:string){
-      const response = await api.post('oauth/token' , {
-
-        grant_type: 'password',
-        username: username,
-        password: password,
-        client_id: 1,
-        client_secret: 'REDACTED',
+      const response = await api.post('api/login', {
+        username,
+        password,
       });
 
       if (response.status != 200) {

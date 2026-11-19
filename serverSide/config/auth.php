@@ -114,4 +114,11 @@ return [
 
     'password_timeout' => 10800,
 
+    'seed_accounts' => [
+        'admin' => [
+            'email' => env('SEED_ADMIN_EMAIL'),
+            'password' => env('SEED_ADMIN_PASSWORD'),
+        ],
+    ],
+
 ];

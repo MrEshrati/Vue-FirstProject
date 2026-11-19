@@ -18,10 +18,24 @@ class UserSeeder extends Seeder
     */
     public function run()
     {
+        $accounts = config('auth.seed_accounts');
+        foreach ($accounts as $role => $credentials) {
+            $password = $credentials['password'];
+            if (!filter_var($credentials['email'], FILTER_VALIDATE_EMAIL)
+                || !is_string($password)
+                || strlen($password) < 12
+                || strlen($password) > 72) {
+                throw new \RuntimeException(
+                    'Set a valid email and a 12–72 byte password for the demo '.$role.' account.'
+                );
+            }
+        }
+
         $user = User::create([
-        'name' => 'Arshiaeshz',
-        'email' => 'REDACTED',
-        'password' => Hash::make('REDACTED')]);
+            'name' => 'Administrator',
+            'email' => $accounts['admin']['email'],
+            'password' => Hash::make($accounts['admin']['password']),
+        ]);
 
         $user->assignRole(Role::findByName(Roles::ADMIN, 'api'));
     }
